@@ -5,6 +5,9 @@ import lombok.Data;
 import javax.persistence.*;
 import com.ensias.Ensias_docs.models.Filiere;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Entity
 @Table(name="user")
@@ -38,9 +41,15 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "user_filiere")
     private Filiere user_filiere;
+
+    @ManyToMany
+    @JoinTable( name = "inscrit",
+            joinColumns = @JoinColumn( name = "id_user" ),
+            inverseJoinColumns = @JoinColumn( name = "id_elm" ) )
+    private List<Element> elements = new ArrayList<>();
 }
 
 
-    //Setters and getters left out for brevity.
+
 
 

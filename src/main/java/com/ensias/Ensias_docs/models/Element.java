@@ -19,12 +19,16 @@ public class Element {
 
     @Column(name = "elm_module")
     private String elmModule;
+
     @Column(name = "elm_description")
     private String elmDesc;
+
     @Column(name = "elm_annee")
     private String elmAnnee;
+
     @Column(name = "elm_semester")
     private String elmSem;
+
     @Column(name = "date_exam")
     private Date dateExam;
 

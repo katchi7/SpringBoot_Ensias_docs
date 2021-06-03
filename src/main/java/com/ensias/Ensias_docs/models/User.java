@@ -22,17 +22,21 @@ public class User {
 
     @Column(name = "user_email", nullable = false, length = 50)
     private String email;
+
     @Column(name = "user_password")
     private String password;
 
     @Column(name = "user_is_admin")
     private int isadmin;
+
     @Column(name = "user_num")
     private String num;
+
     @Column(name = "user_nv")
     private String niv;
+
     @ManyToOne
-    @Column(name = "user_filiere")
+    @JoinColumn(name = "user_filiere")
     private Filiere user_filiere;
 }
 

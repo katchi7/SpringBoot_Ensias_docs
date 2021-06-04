@@ -2,14 +2,20 @@ package com.ensias.Ensias_docs.security;
 
 
 import com.ensias.Ensias_docs.services.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import javax.servlet.ServletException;
@@ -17,16 +23,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Configuration
+@EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public SecurityConfig(UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userService = userService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+    @Autowired
+    private final UserService userService;
+
+    @Autowired
+    private final BCryptPasswordEncoder passwordEncoder;
+
+
 
 
     @Override
@@ -37,8 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.authenticated()
                 .antMatchers("/","/login","/register")
                 .permitAll()
+                .antMatchers("/error")
+                .permitAll()
                 .and()
                 .formLogin()
+
                 .loginPage("/login")
                 .failureHandler(new AuthenticationFailureHandler() {
 
@@ -48,21 +59,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         String email = request.getParameter("email");
                         String error = exception.getMessage();
                         System.out.println("A failed login attempt with email: "
-                                + email + ". Reason: " + error);
+                                + email + ". Reason: " + error+"Exception "+exception);
 
                         String redirectUrl = request.getContextPath() + "/login?error";
                         response.sendRedirect(redirectUrl);
                     }
                 })
+                .usernameParameter("email")
                 .defaultSuccessUrl("/");
 
 
     }
 
+    @Override
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception{
+        authenticationManagerBuilder
+                .userDetailsService(userService)
+                .passwordEncoder(passwordEncoder);
+    }
+
+    /*
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService)
-                .passwordEncoder(bCryptPasswordEncoder);
+                .passwordEncoder(passwordEncoder);
+    }*/
+
+    @Bean
+    public AuthenticationManager customAuthenticationManager() throws Exception {
+        return authenticationManager();
     }
 
 

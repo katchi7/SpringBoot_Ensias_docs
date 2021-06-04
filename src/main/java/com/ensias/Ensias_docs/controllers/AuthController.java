@@ -1,12 +1,25 @@
 package com.ensias.Ensias_docs.controllers;
 
 
+import com.ensias.Ensias_docs.beans.User;
+import com.ensias.Ensias_docs.services.UserService;
+import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class AuthController {
+
+
+
+    private final UserService userService;
+
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping("/")
 
@@ -22,7 +35,23 @@ public class AuthController {
      * */
 
     @GetMapping("register")
-    public String getRegister(){
+    public String getRegister(Model model){
+        User user = new User();
+        model.addAttribute(user);
+        return "inscription";
+    }
+
+    @GetMapping("login")
+    public String getlogin(Model model) {
+        User user = new User();
+        model.addAttribute(user);
+        return "connexion";
+    }
+
+    @PostMapping("register")
+    public String inscription(User user,Model model){
+        userService.saveUser(user);
+        model.addAttribute("user_registered",true);
         return "inscription";
     }
 

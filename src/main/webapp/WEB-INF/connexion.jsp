@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,7 @@
                 </div>
 
                 <div class="col-md-7 col-lg-6 ml-auto">
-                    <form action="login" method = "POST">
+                    <form:form action="login" method = "POST" modelAttribute="user" >
                         <div class="row">
                             <h1>Espace étudiant</h1><br/><br/><br/>
                             <!-- Adresse email -->
@@ -38,7 +39,7 @@
                                         <i class="fa fa-envelope text-muted ${requestScope.form.errors.email==null?"":"err"}"></i>
                                     </span>
                                 </div>
-                                <input id="email" type="email" name="email" placeholder="Adresse Email" class="form-control bg-white border-left-0 border-md " value="${requestScope.user.email}"><br/>
+                                <form:input id="email" type="email" name="email" placeholder="Adresse Email" class="form-control bg-white border-left-0 border-md " value="${requestScope.user.email}" path="email"/><br/>
                                 
                             </div>
                             
@@ -63,7 +64,7 @@
                                         <i class="fa fa-lock text-muted ${requestScope.form.errors.password==null?"":"err"}""></i>
                                     </span>
                                 </div>
-                                <input id="password" type="password" name="password" placeholder="Mot de passe" class="form-control bg-white border-left-0 border-md" value="${requestScope.user.password}">
+                                <form:input id="password" type="password" name="password" placeholder="Mot de passe" class="form-control bg-white border-left-0 border-md" value="${requestScope.user.password}" path="password"/>
                             </div>
                             <!-- Messages des erreurs -->
                             <div class = "err mt-1 ml-2">
@@ -90,7 +91,7 @@
                             </div>
 
                         </div>
-                    </form>
+                    </form:form>
                 </div>
             </div>
         </div>

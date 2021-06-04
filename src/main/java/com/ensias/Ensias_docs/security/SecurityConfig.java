@@ -41,8 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
 
         http.authorizeRequests()
-                //.antMatchers("/ensiasdocs/**")
-                //.authenticated()
+                .antMatchers("/ensiasdocs/**")
+                .authenticated()
                 .antMatchers("/","/login","/register")
                 .permitAll()
                 .antMatchers("/error")

@@ -50,6 +50,7 @@
                 </div>
 				
                 <div class="col-md-7 col-lg-6 ml-auto">
+
                     <form:form action="register" method="post" modelAttribute="user" >
                         <div class="row">
 

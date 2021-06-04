@@ -2,8 +2,9 @@
 <%@ page import="com.ensias.beans.Module" %>
 <%@ page import="com.ensias.beans.User" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.ensias.Ensias_docs.models.Element" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<% ArrayList<Module> modules =(ArrayList<Module>) request.getAttribute("modules"); %>
+<% ArrayList<Element> modules =(ArrayList<Module>) request.getAttribute("modules"); %>
 <% String[] bgs=new String[]{"card_image1.jpg","card_image2.jpg","card_image3.jpg"}; %>
 <!DOCTYPE html>
 <html>
@@ -53,7 +54,7 @@
             </svg>
           </center>
           <div class="sidebar-brand">
-            <a href="/ensiasdocs/profile">${sessionScope.user.fname } ${sessionScope.user.lname }</a>
+            <a href="/ensiasdocs/profile">${user.fname } ${user.lname }</a>
           </div>
         </div>
         <li><a href="/ensiasdocs/home"><i class="fas fa-book" style="margin-right:10px;"></i>Module</a></li>

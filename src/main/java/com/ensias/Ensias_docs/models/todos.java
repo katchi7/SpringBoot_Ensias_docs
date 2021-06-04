@@ -31,9 +31,6 @@ public class todos {
     private Date delai;
 
 
-    @ManyToOne
-    @Column(name = "todo_user")
-    @JoinColumn(name = "todo_user")
-    private User user;
+
 
 }

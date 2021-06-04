@@ -47,6 +47,9 @@ public class User {
             joinColumns = @JoinColumn( name = "id_user" ),
             inverseJoinColumns = @JoinColumn( name = "id_elm" ) )
     private List<Element> elements = new ArrayList<>();
+
+    @OneToMany(targetEntity=todos.class,mappedBy="user")
+    private List<todos> todos =new ArrayList<>();
 }
 
 

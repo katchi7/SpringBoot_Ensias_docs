@@ -27,7 +27,7 @@ public class HomeController {
 
 
         ArrayList<Element> elements= (ArrayList<Element>) es.getElementsByUser(1);
-        model.addAttribute(elements);
+        model.addAttribute("modules",elements);
 
 
         return "Home";

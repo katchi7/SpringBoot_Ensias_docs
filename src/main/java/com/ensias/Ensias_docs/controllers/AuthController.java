@@ -1,9 +1,8 @@
 package com.ensias.Ensias_docs.controllers;
 
 
-import com.ensias.Ensias_docs.beans.User;
+import com.ensias.Ensias_docs.models.User;
 import com.ensias.Ensias_docs.services.UserService;
-import org.dom4j.rule.Mode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

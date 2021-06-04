@@ -28,7 +28,7 @@
                                 </div>
                 
                                 <div class="col-md-7 col-lg-6 ml-auto">
-                                    <h2>Bonjour ${user.lname} ${user.fname},</h2><br/>
+                                    <h2>Bonjour ${user.lastName} ${user.firstName},</h2><br/>
                                     <p class="first-connect">Vous faites deja partie de la famille <span class="first-connect">ENSIAS-DOC</span>. Pour se deconnecter, cliquez sur le boutton ci-dessous.
                                     </p>
                                     <a href="logout" class="btn btn-danger btn-lg active" role="button" title="Lien 1">Se deconnecter</a>
@@ -61,7 +61,7 @@
                                         <i class="fa fa-user text-muted"></i>
                                     </span>
                                 </div>
-                                <form:input id="prenom" type="text" name="prenom" value = "" placeholder="Prénom" class="form-control bg-white border-left-0 border-md champs-form"  path="fname"/>
+                                <form:input id="prenom" type="text" name="prenom" value = "" placeholder="Prénom" class="form-control bg-white border-left-0 border-md champs-form"  path="firstName"/>
                             </div>
                             
 
@@ -73,7 +73,7 @@
                                         <i class="fa fa-user text-muted"></i>
                                     </span>
                                 </div>
-                                <form:input id="nom" type="text" name="nom"  value = "${user.lname}" placeholder="Nom" class="form-control bg-white border-left-0 border-md champs-form" path="lname"/>
+                                <form:input id="nom" type="text" name="nom"  value = "${user.lastName}" placeholder="Nom" class="form-control bg-white border-left-0 border-md champs-form" path="lastName"/>
                             </div>
                             <!-- Adresse email -->
 
@@ -110,11 +110,11 @@
                                         <i class="fas fa-graduation-cap text-muted"></i>
                                     </span>
                                 </div>
-                                <form:select id="niveau"  value = "${user.niveau}" name="niveau" class="form-control custom-select bg-white border-left-0 border-md champs-form" path="niveau">
-                                    <option value="" disabled ${(user.niveau==null)?"selected":""}>Niveau d'étude</option>
-                                    <option value="1A" ${(user.niveau=="1A")?"selected":""}>1er année</option>
-                                    <option value="2A" ${(user.niveau=="2A")?"selected":""}>2ème année</option>
-                                    <option value="3A" ${(user.niveau=="3A")?"selected":""}>3ème année</option>
+                                <form:select id="niveau"  value = "${user.niv}" name="niveau" class="form-control custom-select bg-white border-left-0 border-md champs-form" path="niv" >
+                                    <option value="" disabled ${(user.niv==null)?"selected":""}>Niveau d'étude</option>
+                                    <option value="1A" ${(user.niv=="1A")?"selected":""}>1er année</option>
+                                    <option value="2A" ${(user.niv=="2A")?"selected":""}>2ème année</option>
+                                    <option value="3A" ${(user.niv=="3A")?"selected":""}>3ème année</option>
                                 </form:select>
                             </div>
 
@@ -126,16 +126,16 @@
                                         <i class="far fa-map text-muted"></i>
                                     </span>
                                 </div>
-                                <form:select id="filiere" name="filiere"  value = "${user.filiere}" class="form-control custom-select bg-white border-left-0 border-md champs-form" path="filiere.filiere_name">
-                                    <option value="" disabled ${user.filiere==null?"selected":""}>Choix de filière</option>
-                                    <option value="GL" ${user.filiere=="GL"?"selected":""}>Génie Logiciel</option>
-                                    <option value="IWIM" ${user.filiere=="IWIM"?"selected":""}>Ingénierie du Web et Informatique Mobile</option>
-                                    <option value="eMBI" ${user.filiere=="eMBI"?"selected":""}>e-Management et Business Intelligence</option>
-                                    <option value="SSI" ${user.filiere=="SSI"?"selected":""}>Sécurité des Systèmes d'Information</option>
-                                    <option value="ISEM" ${user.filiere=="ISEM"?"selected":""}>Ingénierie des Systèmes Embarqués, Mobiles</option>
-                                    <option value="IeL" ${user.filiere=="IeL"?"selected":""}>Ingénierie e-Logistique</option>
-                                    <option value="2IA" ${user.filiere=="2IA"?"selected":""}>Ingénierie e-Logistique</option>
-                                    <option value="IF" ${user.filiere=="IF"?"selected":""}>Ingénierie Digitale pour la Finance</option>
+                                <form:select id="filiere" name="filiere"  value = "${user.user_filiere.filiere_name}" class="form-control custom-select bg-white border-left-0 border-md champs-form" path="user_filiere.filiere_name">
+                                    <option value="" disabled ${user.user_filiere.filiere_name==null?"selected":""}>Choix de filière</option>
+                                    <option value="GL" ${user.user_filiere.filiere_name=="GL"?"selected":""}>Génie Logiciel</option>
+                                    <option value="IWIM" ${user.user_filiere.filiere_name=="IWIM"?"selected":""}>Ingénierie du Web et Informatique Mobile</option>
+                                    <option value="eMBI" ${user.user_filiere.filiere_name=="eMBI"?"selected":""}>e-Management et Business Intelligence</option>
+                                    <option value="SSI" ${user.user_filiere.filiere_name=="SSI"?"selected":""}>Sécurité des Systèmes d'Information</option>
+                                    <option value="ISEM" ${user.user_filiere.filiere_name=="ISEM"?"selected":""}>Ingénierie des Systèmes Embarqués, Mobiles</option>
+                                    <option value="IeL" ${user.user_filiere.filiere_name=="IeL"?"selected":""}>Ingénierie e-Logistique</option>
+                                    <option value="2IA" ${user.user_filiere.filiere_name=="2IA"?"selected":""}>Ingénierie e-Logistique</option>
+                                    <option value="IF" ${user.user_filiere.filiere_name=="IF"?"selected":""}>Ingénierie Digitale pour la Finance</option>
                                 </form:select>
                                 </div>
 
@@ -193,7 +193,7 @@
                                 </div>
                 
                                 <div class="col-md-7 col-lg-6 ml-auto">
-                                    <h2>Bonjour ${user.lname} ${user.fname},</h2><br/>
+                                    <h2>Bonjour ${user.lastName} ${user.firstName},</h2><br/>
                                     <p class="first-connect">Bienvenue dans votre espace étudiant, vous faites maintenant partie de la famille <span class="first-connect">ENSIAS-DOC</span>. Afin d'accéder à votre compte et de 
                                         bénéficier d'une expérience inédite dans l'e-learning, veuillez se connecter en cliquant sur le boutton ci-dessous.
                                     </p>

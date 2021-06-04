@@ -1,6 +1,6 @@
 package com.ensias.Ensias_docs.services;
 
-import com.ensias.Ensias_docs.beans.User;
+import com.ensias.Ensias_docs.models.User;
 import com.ensias.Ensias_docs.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

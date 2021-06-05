@@ -1,10 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.ensias.beans.Module" %>
-<%@ page import="com.ensias.beans.User" %>
+
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.ensias.Ensias_docs.models.Element" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<% ArrayList<Element> modules =(ArrayList<Module>) request.getAttribute("modules"); %>
+
 <% String[] bgs=new String[]{"card_image1.jpg","card_image2.jpg","card_image3.jpg"}; %>
 <!DOCTYPE html>
 <html>
@@ -63,9 +62,7 @@
         <li><a href="/ensiasdocs/calendrier"><i class="fas fa-calendar-alt"
               style="margin-right:10px;"></i>Calendrier</a></li>
         <li><a href="/ensiasdocs/todo"><i class="fas fa-list-alt" style="margin-right:10px;"></i>To Do</a></li>
-        <c:if test="${sessionScope.user.administrator }">
-        <li><a href="/ensiasdocs/admin" ><i class="fas fa-user-cog" style="margin-right:10px;"></i>Administrateur</a></li>
-        </c:if>
+
         </li>
         </li>
       </ul>

@@ -68,6 +68,7 @@ public class AuthController {
         User user = userService.getCurrentUser();
         boolean auth = user!=null;
         model.addAttribute("auth",auth);
+
         if(user==null){
             user = new User();
         }

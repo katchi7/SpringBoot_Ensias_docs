@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 
@@ -21,15 +22,17 @@ public class HomeController {
     @Autowired
     private UserService us;
 
+    public HomeController(ElementService es) {
+          this.es=es;
+    }
+
     @RequestMapping("/home")
 
-    public String home(Model model) {
-          //User user =us;
-
-
-        ArrayList<Element> elements= (ArrayList<Element>) es.getElementsByUser(3);
+    public String home(Model model ){
+       User user= us.getCurrentUser();
+       List<Element> elements=  es.getElementsByUser(user.getUser_id());
         model.addAttribute("modules",elements);
-
+        model.addAttribute("user",user);
 
         return "Home";
 

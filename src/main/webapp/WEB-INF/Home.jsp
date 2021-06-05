@@ -1,7 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.ensias.Ensias_docs.models.Element" %>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <% String[] bgs=new String[]{"card_image1.jpg","card_image2.jpg","card_image3.jpg"}; %>
@@ -53,7 +52,7 @@
             </svg>
           </center>
           <div class="sidebar-brand">
-            <a href="/ensiasdocs/profile">${user.fname } ${user.lname }</a>
+            <a href="/ensiasdocs/profile">${user.firstName } ${user.lastName }</a>
           </div>
         </div>
         <li><a href="/ensiasdocs/home"><i class="fas fa-book" style="margin-right:10px;"></i>Module</a></li>
@@ -108,8 +107,8 @@
                             alt="Snowy Mountains">
                             <a href="/ensiasdocs/module/${module.elm_id}">
                           <div class="card__content">
-                            <h1 class="card__header">${module.elm_name}</h1>
-                            <p class="card__text"> ${ module.elm_description } </p><a
+                            <h1 class="card__header">${module.elmName}</h1>
+                            <p class="card__text"> ${ module.elmDesc } </p><a
                               href="/ensiasdocs/module/${module.elm_id}"> <button class="card__btn">Accéder
                                 <span>&rarr;</span></button></a>
                           </div>
@@ -124,7 +123,7 @@
             </div>
           </div>
         </div>
-        <c:choose>
+        <!--<c:choose>
           <c:when test="${!requestScope.search }">
 
             <nav class="page-nbr" aria-label="Page navigation example">
@@ -163,14 +162,14 @@
               </ul>
             </nav>
           </c:when>
-        </c:choose>
-
+        </c:choose>-->
+   <div>
       </div>
       <c:import url="/WEB-INF/footer.jsp"></c:import>
     </div>
     <!-- /#page-content-wrapper -->
   </div>
-
+  </div>
   <script src="/inc/js/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="/inc/js/main.js"></script>
   <script src="/inc/js/barre.js"></script>

@@ -12,8 +12,20 @@ import java.util.List;
 @Table(name="element")
 public class Element {
 
+    public Element(String elmName, String elmModule, String elmDesc, String elmAnnee, String elmSem, List<Filiere> filieres) {
+        this.elmName = elmName;
+        this.elmModule = elmModule;
+        this.elmDesc = elmDesc;
+        this.elmAnnee = elmAnnee;
+        this.elmSem = elmSem;
+        this.filieres = filieres;
+    }
+
+    public Element() {
+    }
+
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int elm_id;
 
     @Column(name = "elm_name")
@@ -38,7 +50,8 @@ public class Element {
     @ManyToMany
     @JoinTable( name = "filiere_element",
             joinColumns = @JoinColumn( name = "id_elm" ),
-            inverseJoinColumns = @JoinColumn( name = "id_fil" ) )
+            inverseJoinColumns = @JoinColumn( name = "id_fil" )
+    )
     private List<Filiere> filieres = new ArrayList<>();
 
 

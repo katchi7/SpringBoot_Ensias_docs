@@ -1,8 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.ensias.beans.Module" %>
-<%@ page import="com.ensias.beans.User" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 
@@ -60,7 +59,7 @@
           </center>
           <div class="sidebar-brand">
 
-            <a href="/ensiasdocs/profile">${sessionScope.user.fname } ${sessionScope.user.lname }</a>
+            <a href="/ensiasdocs/profile">${user.firstName } ${user.lastName }</a>
           </div>
         </div>
         <li><a href="/ensiasdocs/home"><i class="fas fa-book" style="margin-right:10px;"></i>Module</a></li>
@@ -69,7 +68,7 @@
         <li><a href="/ensiasdocs/calendrier"><i class="fas fa-calendar-alt"
               style="margin-right:10px;"></i>Calendrier</a></li>
         <li><a href="/ensiasdocs/todo"><i class="fas fa-list-alt" style="margin-right:10px;"></i>To Do</a></li>
-        <c:if test="${sessionScope.user.administrator }">
+        <c:if test="${user.isadmin == 1 }">
         <li><a href="/ensiasdocs/admin" ><i class="fas fa-user-cog" style="margin-right:10px;"></i>Administrateur</a></li>
         </c:if>
         </li>
@@ -95,7 +94,7 @@
           </div>
         </div>
         <!-- Create todo section -->
-        <form method="POST" action="/ensiasdocs/todo">
+        <form:form method="POST" action="/ensiasdocs/todo">
         <div class="row m-1 p-3">
           <div class="col col-11 mx-auto">
             <div class="row bg-white rounded shadow-sm p-2 add-todo-wrapper align-items-center justify-content-center">
@@ -118,7 +117,7 @@
             </div>
           </div>
         </div>
-        </form>
+        </form:form>
         <div class="p-2 mx-4 border-black-25 border-bottom"></div>
         
         <!-- Todo list section -->
@@ -128,29 +127,29 @@
             <!-- Todo Item 2 -->
             <br/><br/>
             <h4 class="text-primary" style="margin-bottom: 10px;"><i class="fas fa-briefcase" style="margin-right: 15px;"></i>Mes tâches :</h4>
-            <c:forEach items = "${ requestScope.todos }" var="todo">
+            <c:forEach items = "${ user.todos }" var="todo">
             <div class="row px-3 align-items-center todo-item rounded">
               <div class="col-auto m-1 p-0 d-flex align-items-center">
                 <h2 class="m-0 p-0">
                 <c:choose>
-                <c:when test = "${ !todo.todo_isdone }">
-                <form method="POST" action ="/ensiasdocs/todo">
+                <c:when test = "${ todo.done!=1 }">
+                <form:form method="POST" action ="/ensiasdocs/todo/done">
                 <input name="todo_id" value="${ todo.todo_id }" class="d-none"/>
                 <input name="update_done" value="done" class="d-none"/>
                   <button type="submit" style=" border:none; background: none; color: inherit;padding: 0;font: inherit;"  > <i class="far fa-square text-primary  m-0 p-0"  style="cursor: pointer;width: 20px;"
                     data-toggle="tooltip" data-placement="bottom" title="Mark as complete"></i>
                     </button>
-                    </form>
+                    </form:form>
                     </c:when>
                     <c:otherwise>
-                    <form method="POST" action ="/ensiasdocs/todo">
+                    <form:form method="POST" action ="/ensiasdocs/todo/done">
                 <input name="todo_id" value="${ todo.todo_id }" class="d-none"/>
                 <input name="update_done" value="todo" class="d-none"/>
                   <button type="submit" style=" border:none; background: none; color: inherit;padding: 0;font: inherit;"  > 
                   <i class="far fa-check-square text-primary  m-0 p-0 " style="cursor: pointer;width: 20px;"
                     data-toggle="tooltip" data-placement="bottom" title="Mark as todo"></i>
                     </button>
-                    </form>
+                    </form:form>
                     </c:otherwise>
                    </c:choose>
                 </h2>
@@ -158,18 +157,18 @@
               <div class="col px-1 m-1 d-flex align-items-center">
                 <input type="text"
                   class="form-control form-control-lg border-0 edit-todo-input bg-transparent rounded px-3" readonly
-                  value="${ todo.todo_title }" title="Renew car insurance" />	
+                  value="${ todo.title }" title="Renew car insurance" />
                 <input type="text" class="form-control form-control-lg border-0 edit-todo-input rounded px-3 d-none"
-                  value="${ todo.todo_title }" />
+                  value="${ todo.title }" />
               </div>
               <c:choose>
-              	<c:when test="${ todo.todo_isclose }">
+              	<c:when test="${ todo.isclose }">
 				    <div class="col-auto m-1 p-0 px-3">
 				      <div class="row">
 				        <div class="col-auto d-flex align-items-center rounded bg-white border border-warning">
 				          <i class="fas fa-hourglass-half text-warning " style="cursor: pointer;width: 20px;margin-right: 7px;"
 				            data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Il vous reste moins d'une journée"></i>
-				          <h6 class="text my-2 pr-2">${ todo.todo_delai }</h6>
+				          <h6 class="text my-2 pr-2">${ todo.delai }</h6>
 				        </div>
 				      </div>
 				    </div>
@@ -180,8 +179,8 @@
     		</c:choose>
               <div class="col-auto m-1 p-0 todo-actions">
                 <div class="row d-flex align-items-center justify-content-end">
-                  <form method="POST" action ="/ensiasdocs/todo" class="col-5" style="display:inline;">
-                  <input name="todo_delete_id" value="${ todo.todo_id }" class="d-none"/>
+                  <form:form method="POST" action ="/ensiasdocs/todo/delete" class="col-5" style="display:inline;">
+                  <input name="todo_id" value="${ todo.todo_id }" class="d-none"/>
                   <h5 class=" m-0 p-0 px-2">
                   <button type="submit" style=" border:none; background: none; color: inherit;padding: 0;font: inherit;"  >
                     <i class="fas fa-trash-alt text-danger m-0 p-0" style="cursor: pointer;width: 20px;"
@@ -189,13 +188,13 @@
                       </button>
                   </h5>
                   
-                  </form>
+                  </form:form>
                 </div>
                 <div class="row todo-created-info">
                   <div class="col-auto d-flex align-items-center pr-2">
                     <i class="fas fa-info-circle text-black-50" style="cursor: pointer;width: 20px;margin-right: 10px;"
-                      data-toggle="tooltip" data-placement="bottom" title="" data-original-title="${ todo.todo_delai }"></i>
-                    <label class="date-label my-2 text-black-50">${ todo.todo_delai }</label>
+                      data-toggle="tooltip" data-placement="bottom" title="" data-original-title="${ todo.delai }"></i>
+                    <label class="date-label my-2 text-black-50">${ todo.delai }</label>
                   </div>
                 </div>
               </div>

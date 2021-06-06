@@ -130,10 +130,6 @@ public class AdminController {
         ElementModifDto element_modification = new ElementModifDto();
         model.addAttribute("element_modification",element_modification);
 
-        ArrayList<MultipartFile> files = new ArrayList<>();
-
-        model.addAttribute("files",files);
-
     }
 
 

@@ -44,15 +44,6 @@ public class ElementService {
         List<User> users = ur.findUserByFiliereAndNiv(element.getFilieres(),element.getElmAnnee());
         System.out.println(users.size());
         ir.InscrirUsers(users,element);
-<<<<<<< HEAD
-    }
-    public void updateElement(Element element){
-        ep.save(element);
-    }
-    public void updateExam(int elm_id, Date date){
-        ep.updateDate(elm_id,date);
-=======
->>>>>>> 2908207dcfe5107b31722c0a8831c7d8cf56ac0c
     }
     public void updateElement(Element element){
         ep.save(element);

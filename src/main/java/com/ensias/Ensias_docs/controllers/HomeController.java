@@ -29,7 +29,7 @@ public class HomeController {
 
     @RequestMapping("/home")
 
-    public String home(Model model, @RequestParam(name = "page") int page, @RequestParam(name = "find" ) String find){
+    public String home(Model model, @RequestParam(name = "page",defaultValue ="0") String page, @RequestParam(name = "find",defaultValue = "") String find){
         User user= us.getCurrentUser();
         boolean auth = user!=null;
         model.addAttribute("auth",auth);
@@ -46,7 +46,7 @@ public class HomeController {
             model.addAttribute("nbpages",((elements.size()-1)/4));
             int requestedPage=0;
             try {
-                requestedPage = page;
+                requestedPage = Integer.parseInt(page);
             }catch(NumberFormatException e) {
                 requestedPage=0;
             }

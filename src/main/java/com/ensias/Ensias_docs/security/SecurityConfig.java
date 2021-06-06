@@ -4,21 +4,17 @@ package com.ensias.Ensias_docs.security;
 import com.ensias.Ensias_docs.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.StandardPasswordEncoder;
-import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,26 +22,37 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @EnableWebSecurity
-@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    @Autowired
     private final UserService userService;
 
-    @Autowired
+
     private final BCryptPasswordEncoder passwordEncoder;
 
-
+    @Autowired
+    public SecurityConfig(UserService userService, BCryptPasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception{
 
         http.authorizeRequests()
+                .antMatchers("/ensiasdocs/admin/**")
+                .hasAuthority("ADMIN")
+                .and().exceptionHandling().accessDeniedHandler(new AccessDeniedHandler() {
+            @Override
+            public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
+                System.out.println(e.getMessage());
+                httpServletResponse.sendRedirect("/ensiasdocs/home");
+            }
+        })
+        .and().authorizeRequests()
                 .antMatchers("/ensiasdocs/**")
                 .authenticated()
-
                 .antMatchers("/","/login","/register")
                 .permitAll()
                 .antMatchers("/error")
@@ -58,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                     @Override
                     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-                                                        AuthenticationException exception) throws IOException, ServletException {
+                                                        AuthenticationException exception) throws IOException{
                         String email = request.getParameter("email");
                         String error = exception.getMessage();
                         System.out.println("A failed login attempt with email: "
@@ -69,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     }
                 })
                 .usernameParameter("email")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/ensiasdocs/home")
                 .and()
             .logout()
         .logoutSuccessUrl("/login");

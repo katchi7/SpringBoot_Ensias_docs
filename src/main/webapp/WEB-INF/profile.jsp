@@ -1,7 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.ensias.beans.Module" %>
-<%@ page import="com.ensias.beans.User" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -52,7 +49,7 @@
           </center>
           <div class="sidebar-brand">
 
-            <a href="/ensiasdocs/profile">${sessionScope.user.fname } ${sessionScope.user.lname }</a>
+            <a href="/ensiasdocs/profile">${user.firstName } ${user.lastName }</a>
           </div>
         </div>
         <li><a href="/ensiasdocs/home"><i class="fas fa-book" style="margin-right:10px;"></i>Module</a></li>
@@ -61,7 +58,7 @@
         <li><a href="/ensiasdocs/calendrier"><i class="fas fa-calendar-alt"
               style="margin-right:10px;"></i>Calendrier</a></li>
         <li><a href="/ensiasdocs/todo"><i class="fas fa-list-alt" style="margin-right:10px;"></i>To Do</a></li>
-        <c:if test="${sessionScope.user.administrator }">
+        <c:if test="${user.isadmin==1 }">
         <li><a href="/ensiasdocs/admin" ><i class="fas fa-user-cog" style="margin-right:10px;"></i>Administrateur</a></li>
         </c:if>
         </li>
@@ -106,8 +103,8 @@
 
                 <div class="col-4" style="margin-top: 30px;">
                   <center>
-                    <h2>${sessionScope.user.fname } ${sessionScope.user.lname }</h2>
-                    <h4>${sessionScope.user.full_filiere}</h4>
+                    <h2>${user.firstName } ${user.lastName }</h2>
+                    <h4>${user.user_filiere.filiere_abs}</h4>
                   </center>
 
                 </div>
@@ -117,21 +114,21 @@
             <div class="container corps-profile">
               <div class="row justify-content-center">
                 <div class="col-5" style="margin-right: 20px;padding-left: 50px;">
-                  <p><span class="info">Nom &nbsp;&nbsp; : </span><span>&nbsp;&nbsp; ${sessionScope.user.lname
+                  <p><span class="info">Nom &nbsp;&nbsp; : </span><span>&nbsp;&nbsp; ${user.lastName
                       }</span></p>
-                  <p><span class="info">Prénom &nbsp;&nbsp; : </span><span>&nbsp;&nbsp; ${sessionScope.user.fname
+                  <p><span class="info">Prénom &nbsp;&nbsp; : </span><span>&nbsp;&nbsp; ${user.firstName
                       }</span></p>
                   <p><span class="info">Adresse email &nbsp;&nbsp; : </span><span>&nbsp;&nbsp;
-                      ${sessionScope.user.email }</span></p>
+                      ${user.email }</span></p>
                 </div>
                 <div class="col-5">
                   <p><span class="info">Niveau universitaire &nbsp;&nbsp; : </span><span>&nbsp;&nbsp;
-                      ${sessionScope.user.niveau }</span>
+                      ${user.niv }</span>
                   </p>
                   <p><span class="info">Filière &nbsp;&nbsp; : </span><span>&nbsp;&nbsp;
-                      ${sessionScope.user.full_filiere }</span></p>
+                      ${user.user_filiere.filiere_abs }</span></p>
                   <p><span class="info">N° de téléphone &nbsp;&nbsp; : </span><span>&nbsp;&nbsp;
-                      ${sessionScope.user.num }</span></p>
+                      ${user.num }</span></p>
                 </div>
               </div>
             </div>

@@ -7,6 +7,7 @@ import com.ensias.Ensias_docs.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -64,6 +65,18 @@ public class HomeController {
 
         return "Home";
 
+    }
+    @GetMapping("/profile")
+    public String getProfile(Model model){
+        addAttributes(model);
+        return "profile";
+    }
+
+    private void addAttributes(Model model){
+        User user = us.getCurrentUser();
+        boolean auth = user!=null;
+        model.addAttribute("auth",auth);
+        if(user!=null)model.addAttribute("user",user);
     }
 
 

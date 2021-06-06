@@ -369,7 +369,7 @@
           <div id="Document" class="tabcontent">
             <h2><i class="fas fa-file-download" style="margin-right: 10px;"></i>Ajout des documents</h2>
             <div>
-              <form action="/ensiasdocs/admin/upload-doc" method="POST" enctype="multipart/form-data">
+              <form:form action="/ensiasdocs/admin/upload-doc" method="POST" enctype="multipart/form-data" >
                 <div class="row align-items-center">
 
                   <div class="input-group col-lg-12 mb-4">
@@ -397,11 +397,11 @@
                                 <div class="fileUpload btn btn-orange">
                                   <img src="https://image.flaticon.com/icons/svg/136/136549.svg" class="icon">
                                   <span class="upl" id="upload">Upload document</span>
-                                  <input type="file" class="upload up" id="up" accept="*" name="file" onchange="readURL(this);" />
+                                  <input type="file" class="upload up" id="up" accept="*" name="file" onchange="readURL(this);"  />
                                 </div><!-- btn-orange -->
                               </div><!-- col-3 -->
                               <div class="col-sm-8">
-                                <input type="text" class="form-control" name="type1" placeholder="Note">
+                                <input type="text" class="form-control" name="type" placeholder="Note">
                               </div>
                               <!--col-8-->
                               <div class="col-sm-1 align-items-center" ><a class="btn-check"><i class="fa fa-times"></i></a></div>
@@ -422,7 +422,7 @@
                     </div>
                   </div>
                   </div>
-              </form>
+              </form:form>
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import com.ensias.Ensias_docs.dto.ElementCreationFormDto;
 import com.ensias.Ensias_docs.dto.ElementModifDto;
 import com.ensias.Ensias_docs.models.Element;
 import com.ensias.Ensias_docs.models.User;
+import com.ensias.Ensias_docs.services.DocumentService;
 import com.ensias.Ensias_docs.services.ElementService;
 import com.ensias.Ensias_docs.services.UserService;
 import org.dom4j.rule.Mode;
@@ -13,19 +14,27 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartRequest;
 
+import javax.print.Doc;
 import javax.validation.Valid;
 import javax.xml.crypto.Data;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/ensiasdocs/admin")
 public class AdminController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    DocumentService documentService;
 
     @Autowired
     ElementService elementService;
@@ -86,6 +95,26 @@ public class AdminController {
         return "admin";
     }
 
+
+
+
+    @GetMapping("/upload-doc")
+    public String getUploadDoc(){return "redirect:/ensiasdocs/admin";}
+
+    @PostMapping(value = "/upload-doc",consumes = { "multipart/form-data" })
+    public String UploadDoc(Model model, MultipartRequest multipartRequest,@RequestParam("nom_module") int elm_id,@RequestParam("type") String[] types ){
+
+        int i=0;
+        for(MultipartFile file : multipartRequest.getFileMap().values()){
+            documentService.saveDocument(elm_id,file,types[i]);
+            i++;
+        }
+        addAttributes(model);
+        return "admin";
+    }
+
+
+
     private void addAttributes(Model model){
         User user = userService.getCurrentUser();
         boolean auth = user!=null;
@@ -101,10 +130,21 @@ public class AdminController {
         ElementModifDto element_modification = new ElementModifDto();
         model.addAttribute("element_modification",element_modification);
 
+        ArrayList<MultipartFile> files = new ArrayList<>();
+
+        model.addAttribute("files",files);
+
     }
+
+
+
+
+
+
     @ExceptionHandler(MissingServletRequestParameterException.class)
     public String HandleException(MissingServletRequestParameterException e){
         System.out.println("name " + e.getMessage());
+
         return "redirect:/ensiasdocs/admin";
     }
 }

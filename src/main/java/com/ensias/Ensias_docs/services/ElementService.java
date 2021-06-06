@@ -48,9 +48,11 @@ public class ElementService {
     public void updateElement(Element element){
         ep.save(element);
     }
+
     public void updateExam(int elm_id, Date date){
         ep.updateDate(elm_id,date);
     }
+
     public List<Element> getDisplayedModules(List<Element> elements,int taille,int index){
         List<Element> mod = new ArrayList<>();
         if(elements.size()<index) index =0;

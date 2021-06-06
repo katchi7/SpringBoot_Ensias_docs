@@ -1,6 +1,7 @@
 package com.ensias.Ensias_docs.models;
 
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +14,15 @@ import java.util.List;
 public class Element {
 
     public Element(String elmName, String elmModule, String elmDesc, String elmAnnee, String elmSem, List<Filiere> filieres) {
+        this.elmName = elmName;
+        this.elmModule = elmModule;
+        this.elmDesc = elmDesc;
+        this.elmAnnee = elmAnnee;
+        this.elmSem = elmSem;
+        this.filieres = filieres;
+    }
+    public Element(int elm_id ,String elmName, String elmModule, String elmDesc, String elmAnnee, String elmSem, List<Filiere> filieres) {
+        this.elm_id = elm_id;
         this.elmName = elmName;
         this.elmModule = elmModule;
         this.elmDesc = elmDesc;

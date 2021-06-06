@@ -24,12 +24,27 @@ function openCity(evt, cityName) {
 		
 			if($(".elm_id").eq(index).text()===elm_id){
 				$("#nv_module").attr("value",$(".elm_module").eq(index).text());
+                $("#elmModule").attr("value",$(".elm_module").eq(index).text());
 				$("#nv_dscModule").attr("value",$(".elm_description").eq(index).text());
 				$("#nv_dscModule").text($(".elm_description").eq(index).text());
 				 $('#nv_annee').find('option').each(function(i,e){
         			if($(e).val() == $(".elm_annee").eq(index).text() ){
             		$('#nv_annee').prop('selectedIndex',i);
         		}
+        		$(".filiere_cb").each( ()=>{
+        		     var value = $(this).val()
+                    console.log("Before" + value)
+                    var cb =this
+                    $(".filieres").eq(index).find(".filiere").each( (i)=>{
+                            if($(this).text() == value){
+                                $(cb).setAttributeNode("value","on")
+                                console.log(value)
+                            }
+                        }
+                    )
+                    }
+
+                )
           });
         		$('#nv_semestre').find('option').each(function(i,e){
         			if($(e).val() == $(".elm_semester").eq(index).text() ){

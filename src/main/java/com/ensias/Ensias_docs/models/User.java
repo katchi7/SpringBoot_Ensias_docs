@@ -27,6 +27,8 @@ public class User implements UserDetails {
     public User() {
     }
 
+
+
     public User(String firstName, String lastName, String email, String password, String num, String niv, Filiere user_filiere) {
         this.firstName = firstName;
         this.lastName = lastName;

@@ -79,6 +79,11 @@
           <span class="elm_annee">${module.elmAnnee}</span>
           <span class="elm_semester">${module.elmSem}</span>
           <span class="elm_description">${module.elmDesc}</span>
+          <span class="filieres">
+          <c:forEach items="${module.filieres}" var="filiere">
+            <span class = "filiere">${filiere.filiere_name}</span>
+          </c:forEach>
+          </span>
         </div>
       </c:forEach>
     <div id="page-content-wrapper">
@@ -101,7 +106,7 @@
           <div id="Exams" class="tabcontent">
             <h2><i class="fas fa-cubes" style="margin-right: 10px;"></i>Ajouter un examen</h2>
             <div>
-              <form action="/ensiasdocs/admin/modifier-module" method="POST">
+              <form:form action="/ensiasdocs/admin/ajouter-examen" method="POST">
                 <div class="row align-items-center">
                   <div class="input-group col-lg-12 mb-4">
                     <div class="input-group col-lg-12 mb-4" style="margin-top: 50px;">
@@ -130,7 +135,7 @@
                       <span class="font-weight-bold">Ajouter un examen</span>
                     </button>
                   </div>
-              </form>
+              </form:form>
             </div>
           </div>
 
@@ -139,53 +144,55 @@
           <div id="Modification" class="tabcontent">
             <h2><i class="fas fa-pencil-alt" style="margin-right: 10px;"></i>Modification d'un module</h2>
             <div>
-              <form action="/ensiasdocs/admin/modifier-module" method="POST">
+              <form:form action="/ensiasdocs/admin/modifier-module" method="POST" modelAttribute="element_modification">
                 <div class="row align-items-center">
                   <div class="input-group col-lg-12 mb-4">
                     <div class="input-group col-lg-12 mb-4" style="margin-top: 50px;">
-                      <select id="cmodule" name="elm_module"
-                        class="browser-default custom-select champs-form choix">
+                      <form:select id="cmodule" name="elm_module"
+                        class="browser-default custom-select champs-form choix" path="elm_id">
                         <option value="" disabled selected>Choix du module</option>
                         <c:forEach items ="${requestScope.modules}" var="module">
                         	<option value="${module.elm_id }">${module.elmName}</option>
                         </c:forEach>
-                      </select>
+                      </form:select>
                     </div>
 
                     <!-- Nom module -->
                     <div class="input-group col-lg-12 mb-4">
-                      <input type="text" name="module" id="nv_module" class="form-control champs-form"
-                        placeholder="Nouveau nom du module">
+                      <form:input type="text" name="module" id="nv_module" class="form-control champs-form"
+                        placeholder="Nouveau nom du module" path="elmModule"/>
+                      <form:input type="text" name="module" id="elmModule" class="form-control d-none champs-form"
+                                  placeholder="Nouveau nom du module" path="elmName" />
                     </div>
 
                     <!-- Année -->
                     <div class="input-group col-lg-6 mb-4">
-                      <select id="nv_annee" value="" name="annee"
-                        class="browser-default custom-select champs-form choix">
+                      <form:select id="nv_annee" value="" name="annee"
+                        class="browser-default custom-select champs-form choix" path="elmAnnee">
                         <option value="" disabled selected>Niveau d'étude</option>
                         <option value="1A">1er année</option>
                         <option value="2A">2ème année</option>
                         <option value="3A">3ème année</option>
-                      </select>
+                      </form:select>
                     </div>
 
                     <!-- Semestre -->
                     <div class="input-group col-lg-6 mb-4">
-                      <select id="nv_semestre" value="" name="semestre"
-                        class="browser-default custom-select champs-form choix">
+                      <form:select id="nv_semestre" value="" name="semestre"
+                        class="browser-default custom-select champs-form choix" path="elmSem">
                         <option value="" disabled selected>Semestre</option>
                         <option value="S1">Semestre 1</option>
                         <option value="S2">Semestre 2</option>
                         <option value="S3">Semestre 3</option>
                         <option value="S4">Semestre 4</option>
                         <option value="S5">Semestre 5</option>
-                      </select>
+                      </form:select>
                     </div>
 
                     <!-- Description module -->
                     <div class="input-group col-lg-12 mb-4">
-                      <textarea id="nv_dscModule" name="dscModule" class="form-control md-textarea" length="120"
-                        rows="3" placeholder="Description du module"></textarea>
+                      <form:textarea id="nv_dscModule" name="dscModule" class="form-control md-textarea" length="120"
+                        rows="3" placeholder="Description du module" path="elmDesc"></form:textarea>
                     </div>
 
                     <!-- Choix des filières -->
@@ -193,42 +200,42 @@
                     <div class="form-check">
                       <div class="input-group col-lg-12 custom-checkbox">
                         <label class="container col-lg-6 mb-4">
-                          <input type="checkbox" name="GL" value="GL">
+                          <form:checkbox  class = "filiere_cb" name="GL" value="GL" path="filieres"/>
                           <span class="checkmark"></span>
                           Génie Logiciel
                         </label>
                         <label class="container col-lg-6 mb-4">
-                          <input type="checkbox" name="IWIM" value="IWIM">
+                          <form:checkbox  class = "filiere_cb" name="IWIM" value="IWIM" path="filieres"/>
                           <span class="checkmark"></span>
                           Ingénierie du Web et Informatique Mobile
                         </label>
                         <label class="container col-lg-6 mb-4">
-                          <input type="checkbox" name="eMBI" value="eMBI">
+                          <form:checkbox  class = "filiere_cb" name="eMBI" value="eMBI" path="filieres"/>
                           <span class="checkmark"></span>
                           e-Management et Business Intelligence
                         </label>
                         <label class="container col-lg-6 mb-4">
-                          <input type="checkbox" name="SSI" value="SSI">
+                          <form:checkbox  class = "filiere_cb" name="SSI" value="SSI" path="filieres"/>
                           <span class="checkmark"></span>
                           Sécurité des Systèmes d'Information
                         </label>
                         <label class="container col-lg-6 mb-4">
-                          <input type="checkbox" name="ISEM" value="ISEM">
+                          <form:checkbox  class = "filiere_cb" name="ISEM" value="ISEM" path="filieres"/>
                           <span class="checkmark"></span>
                           Ingénierie des Systèmes Embarqués, Mobiles
                         </label>
                         <label class="container col-lg-6 mb-4">
-                          <input type="checkbox" name="IeL" value="IeL">
+                          <form:checkbox  class = "filiere_cb" name="IeL" value="IeL" path="filieres"/>
                           <span class="checkmark"></span>
                           Ingénierie e-Logistique
                         </label>
                         <label class="container col-lg-6 mb-4">
-                          <input type="checkbox" name="2IA" value="2IA">
+                          <form:checkbox  class = "filiere_cb" name="2IA" value="2IA" path="filieres"/>
                           <span class="checkmark"></span>
                           Ingénierie Intélligence Artificielle
                         </label>
                         <label class="container col-lg-6 mb-4">
-                          <input type="checkbox" name="IDF" value="IDF">
+                          <form:checkbox  class = "filiere_cb" name="IDF" value="IDF" path="filieres"/>
                           <span class="checkmark"></span>
                           Ingénierie Digitale pour la Finance
                         </label>
@@ -241,7 +248,7 @@
                       <span class="font-weight-bold">Modifier</span>
                     </button>
                   </div>
-              </form>
+              </form:form>
             </div>
           </div>
 

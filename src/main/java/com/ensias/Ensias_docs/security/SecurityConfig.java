@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/ensiasdocs/**")
                 .authenticated()
+
                 .antMatchers("/","/login","/register")
                 .permitAll()
                 .antMatchers("/error")

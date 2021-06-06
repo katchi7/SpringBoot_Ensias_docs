@@ -10,6 +10,9 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Data
@@ -29,7 +32,11 @@ public class ElementService {
     }
 
     public List<Element> getAllElements(){
-        return ep.findAll();
+        List<Element> list = new ArrayList<Element>();
+        Iterator iterator = ep.findAll().iterator();
+        while (iterator.hasNext())
+            list.add((Element) iterator.next());
+        return list;
     }
 
     public void createElement( Element element ){
@@ -37,7 +44,12 @@ public class ElementService {
         List<User> users = ur.findUserByFiliereAndNiv(element.getFilieres(),element.getElmAnnee());
         System.out.println(users.size());
         ir.InscrirUsers(users,element);
-
+    }
+    public void updateElement(Element element){
+        ep.save(element);
+    }
+    public void updateExam(int elm_id, Date date){
+        ep.updateDate(elm_id,date);
     }
 
 

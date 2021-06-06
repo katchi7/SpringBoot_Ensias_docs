@@ -21,5 +21,7 @@ public interface ElementRepository extends CrudRepository<Element,Integer> {
     @Modifying
     @Query("UPDATE Element e set e.dateExam=?2 WHERE e.elm_id = ?1")
     void updateDate(int elm_id, Date date);
+    @Query("SELECT u FROM Element u WHERE u.elmName = ?1")
+    Element findElementByName(String name);
 
 }

@@ -1,7 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.ensias.beans.Module" %>
-<%@ page import="com.ensias.beans.User" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -52,14 +49,14 @@
            </center>
           <div class="sidebar-brand" >
           	
-            <a href="/ensiasdocs/profile">${sessionScope.user.fname } ${sessionScope.user.lname }</a>
+            <a href="/ensiasdocs/profile">${user.firstName } ${user.lastName }</a>
           </div>
         </div>
         <li><a href="/ensiasdocs/home"><i class="fas fa-book" style="margin-right:10px;"></i>Module</a></li>
         <li><a href="/ensiasdocs/profile"><i class="fas fa-user-graduate" style="margin-right:10px;"></i></i>Profil</a></li>
         <li><a href="/ensiasdocs/calendrier"><i class="fas fa-calendar-alt" style="margin-right:10px;"></i>Calendrier</a></li>
         <li><a href="/ensiasdocs/todo"><i class="fas fa-list-alt" style="margin-right:10px;"></i>To Do</a></li>
-        <c:if test="${sessionScope.user.administrator }">
+        <c:if test="${user.isadmin==1 }">
         <li><a href="/ensiasdocs/admin" ><i class="fas fa-user-cog" style="margin-right:10px;"></i>Administrateur</a></li>
         </c:if>
         </li>

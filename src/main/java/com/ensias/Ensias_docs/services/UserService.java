@@ -177,4 +177,12 @@ public class UserService implements UserDetailsService {
             }
         }
     }
+    public boolean isInscrit(Optional<Element> el,User user){
+        List<Element> elements=user.getElements();
+        if(elements.contains(el.get())){
+            return true;
+        }
+        return false;
+
+    }
 }

@@ -15,24 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Optional;
 
-public class ModuleController {
-    package com.ensias.Ensias_docs.controllers;
 
-import com.ensias.Ensias_docs.models.Document;
-import com.ensias.Ensias_docs.models.Element;
-import com.ensias.Ensias_docs.models.User;
-import com.ensias.Ensias_docs.services.DocumentService;
-import com.ensias.Ensias_docs.services.ElementService;
-import com.ensias.Ensias_docs.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-import java.util.Optional;
+
 
     @Controller
     @RequestMapping("/ensiasdocs")
@@ -107,4 +92,4 @@ import java.util.Optional;
 
     }
 
-}
+

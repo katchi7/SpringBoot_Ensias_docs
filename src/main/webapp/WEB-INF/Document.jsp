@@ -1,6 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.ensias.beans.Module"%>
-<%@ page import="com.ensias.beans.User" %>
+
 <%@ page import="java.util.ArrayList" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 <!DOCTYPE html>
@@ -26,7 +25,7 @@
     </head>
     <body>
         <c:import url="/WEB-INF/header.jsp"></c:import>
-		<div class="min-vh-100" style="margin-top:90px;height:500px;"><embed src="${requestScope.doc.doc_path}" width="100%" height="100%" type="${requestScope.doc.doc_mime}"></div>
+        <div class="min-vh-100" style="margin-top:90px;height:500px;"><iframe src="/files/${doc.doc_id}?download=0" width="100%" height="100%" type="${doc.docMime}"/></div>
  <c:import url="/WEB-INF/footer.jsp"></c:import>
     </body>
 </html>

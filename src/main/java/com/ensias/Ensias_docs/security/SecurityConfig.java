@@ -79,7 +79,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/ensiasdocs/home")
                 .and()
             .logout()
-        .logoutSuccessUrl("/login");
+        .logoutSuccessUrl("/login")
+        .and().headers().frameOptions().sameOrigin();
 
 
     }

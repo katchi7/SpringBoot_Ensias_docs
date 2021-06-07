@@ -16,6 +16,8 @@ import javax.print.Doc;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -59,5 +61,24 @@ public class DocumentService {
             return docOp.get();
         }
         return null;
+    }
+    public List<Document> findDocByElement(int id_elm){
+        List<Document> documentElms=new ArrayList<Document>();
+        List<Document> documents=documentRepository.findAll();
+        Element element=elementRepository.findById(id_elm).get();
+        for(Document doc:documents){
+            if(element.equals(doc.getDoc_elm()))
+                documentElms.add(doc);
+
+        }
+        return  documentElms;
+
+    }
+    public List<String> getTypes(List<Document> docs){
+        List<String> types = new ArrayList<>();
+        for(Document doc : docs) {
+            if(!types.contains(doc.getDocType())) types.add(doc.getDocType());
+        }
+        return types;
     }
 }

@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class todos {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int todo_id;
 
     @JoinColumn(name = "todo_title")

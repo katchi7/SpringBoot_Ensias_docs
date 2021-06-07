@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name="document")
 public class Document {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int doc_id;
 
 

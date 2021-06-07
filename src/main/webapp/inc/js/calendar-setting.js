@@ -127,8 +127,8 @@ $(".datetimepicker").datepicker({ dateFormat: 'yy-mm-dd' });
 				
 				if(event.type==="todo"){
 					jQuery('.delete_form').removeClass("d-none");
-					jQuery('.suppr').attr('name','todo_delete_id');
-					jQuery('.delete_form').attr('action','/ensiasdocs/todo');
+					jQuery('.suppr').attr('name','calendar_todo_id');
+					jQuery('.delete_form').attr('action','/ensiasdocs/todo/calendardelete');
 				}
 				else{
 					if(jQuery('#acc').text()==='true'){

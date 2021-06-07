@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 
@@ -50,14 +51,14 @@
                 </svg>
            </center>
           <div class="sidebar-brand">
-            <a href="/ensiasdocs/profile">${sessionScope.user.fname } ${sessionScope.user.lname }</a>
+            <a href="/ensiasdocs/profile">${user.firstName } ${user.lastName }</a>
           </div>
         </div>
         <li><a href="/ensiasdocs/home"><i class="fas fa-book" style="margin-right:10px;"></i>Module</a></li>
         <li><a href="/ensiasdocs/profile"><i class="fas fa-user-graduate" style="margin-right:10px;"></i></i>Profil</a></li>
         <li><a href="/ensiasdocs/calendrier"><i class="fas fa-calendar-alt" style="margin-right:10px;"></i>Calendrier</a></li>
         <li><a href="/ensiasdocs/todo"><i class="fas fa-list-alt" style="margin-right:10px;"></i>To Do</a></li>
-        <c:if test="${sessionScope.user.administrator }">
+        <c:if test="${user.isadmin==1 }">
         <li><a href="/ensiasdocs/admin" ><i class="fas fa-user-cog" style="margin-right:10px;"></i>Administrateur</a></li>
         </c:if>
         </li>
@@ -71,7 +72,7 @@
     <div class="d-none" id="acc">${ sessionScope.user.administrator }</div>
     <div id="page-content-wrapper">
       <c:import url="/WEB-INF/header.jsp"></c:import>
-      <c:forEach items="${requestScope.events}" var="event">
+      <c:forEach items="${events}" var="event">
         <div class="user_events" hidden>
         <span class="event_id">${event.event_id}</span>
           <span class="event_name">${event.event_name}</span>
@@ -114,10 +115,10 @@
                       <div class="event-body"></div>
                     </div>
                     <div class="modal-footer">
-                      <form action="" class="delete_form" method="POST">
+                      <form:form action="" class="delete_form" method="POST">
                         <input class="d-none suppr" value="" name="">
                         <button type="submit" class="btn btn-danger" >Supprimer</button>
-                      </form>
+                      </form:form>
                       <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
                     </div>
                   </div>
@@ -127,7 +128,7 @@
               <div id="modal-view-event-add" class="modal modal-top fade calendar-modal">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
-                    <form method="POST" action="/ensiasdocs/todo" id="add-event">
+                    <form:form method="POST" action="/ensiasdocs/calendartodo" id="add-event">
                       <div class="modal-body">
                         <h4 class="text-blue h4 mb-10">Ajouter un tâche</h4>
                         <div class="form-group">
@@ -156,7 +157,7 @@
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
                       </div>
-                    </form>
+                    </form:form>
                   </div>
                 </div>
               </div>

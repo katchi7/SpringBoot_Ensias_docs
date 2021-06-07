@@ -51,6 +51,9 @@ public class todos {
 
         return new SimpleDateFormat("dd MMMM yyyy").format(delai);
     }
+    public Date getDelaiAsDate(){
+        return delai;
+    }
 
     public todos() {
 

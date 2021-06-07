@@ -24,4 +24,6 @@ public interface ElementRepository extends CrudRepository<Element,Integer> {
     @Query("SELECT u FROM Element u WHERE u.elmName = ?1")
     Element findElementByName(String name);
 
+    List<Element> findElementByDateExamNotNull();
+
 }

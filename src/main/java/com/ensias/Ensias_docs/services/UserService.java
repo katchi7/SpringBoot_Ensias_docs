@@ -1,8 +1,10 @@
 package com.ensias.Ensias_docs.services;
 
 import com.ensias.Ensias_docs.dto.EventDto;
+import com.ensias.Ensias_docs.models.Element;
 import com.ensias.Ensias_docs.models.User;
 import com.ensias.Ensias_docs.models.todos;
+import com.ensias.Ensias_docs.repositories.ElementRepository;
 import com.ensias.Ensias_docs.repositories.TodosRepository;
 import com.ensias.Ensias_docs.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -36,13 +35,15 @@ public class UserService implements UserDetailsService {
     private final BCryptPasswordEncoder passwordEncoder;
 
     private final TodosRepository todosRepository;
+    private final ElementRepository elementRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, TodosRepository todosRepository) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, TodosRepository todosRepository, ElementRepository elementRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
 
         this.todosRepository = todosRepository;
+        this.elementRepository = elementRepository;
     }
 
     @Override
@@ -116,12 +117,28 @@ public class UserService implements UserDetailsService {
     }
 
 
+
     public List<EventDto> getUserEvents(User user){
-        return null;
+
+        List<EventDto> events = new ArrayList<>();
+
+        for (todos todo : user.getTodos()){
+            events.add(new EventDto(todo));
+        }
+        List<Element> elements = elementRepository.findElementByDateExamNotNull();
+        for (Element element : elements){
+            events.add(new EventDto(element));
+        }
+
+        return events;
+    }
+
+    public void saveUserTodo(todos todo){
+        todosRepository.save(todo);
     }
 
 
-    private Date toDate(String todo_date) {
+    public Date toDate(String todo_date) {
 
 
         try {

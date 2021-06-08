@@ -308,6 +308,7 @@
                     <p style="margin-left:50px;font-weight:bold;"><i class="fas fa-atom" style="margin-right:7px;"></i>Choix des filières :</p>
                     <div class="form-check">
                       <div class="input-group col-lg-12 custom-checkbox">
+                        <!--
                         <label class="container col-lg-6 mb-4">
                           <form:checkbox  name="GL" value="GL" path="filieres"/>
                           <span class="checkmark"></span>
@@ -348,6 +349,15 @@
                           <span class="checkmark"></span>
                           Ingénierie Digitale pour la Finance
                         </label>
+                        -->
+                        <c:forEach items="${filieres}" var="filiere">
+
+                          <label class="container col-lg-6 mb-4">
+                            <form:checkbox  name="${filiere.filiere_name}" value="${filiere.filiere_name}" path="filieres" />
+                            <span class="checkmark"></span>
+                              ${filiere.filiere_abs}
+                          </label>
+                        </c:forEach>
                       </div>
                     </div>
 

@@ -33,6 +33,7 @@ public class HomeController {
     public String home(Model model, @RequestParam(name = "page",defaultValue ="0") String page, @RequestParam(name = "find",defaultValue = "") String find){
         User user= us.getCurrentUser();
         boolean auth = user!=null;
+        model.addAttribute("user",user);
         model.addAttribute("auth",auth);
 
         if(find==null || find.equals("null")|| find.trim().equals("")){
@@ -42,7 +43,7 @@ public class HomeController {
 
             List<Element> elements=  es.getElementsByUser(user.getUser_id());
 
-            model.addAttribute("user",user);
+
 
             model.addAttribute("nbpages",((elements.size()-1)/4));
             int requestedPage=0;
@@ -60,6 +61,8 @@ public class HomeController {
         else{
             List<Element> elements=es.getElementByModuleName(find);
 
+            System.out.println(find);
+            System.out.println(elements.size());
             model.addAttribute("search",true);
             model.addAttribute("elements",elements);
 

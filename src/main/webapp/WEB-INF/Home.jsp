@@ -61,7 +61,9 @@
       <li><a href="/ensiasdocs/calendrier"><i class="fas fa-calendar-alt"
                                               style="margin-right:10px;"></i>Calendrier</a></li>
       <li><a href="/ensiasdocs/todo"><i class="fas fa-list-alt" style="margin-right:10px;"></i>To Do</a></li>
-
+      <c:if test="${user.isadmin == 1 }">
+        <li><a href="/ensiasdocs/admin" ><i class="fas fa-user-cog" style="margin-right:10px;"></i>Administrateur</a></li>
+      </c:if>
       </li>
       </li>
     </ul>

@@ -2,6 +2,7 @@ package com.ensias.Ensias_docs.controllers;
 
 
 import com.ensias.Ensias_docs.dto.UserDto;
+import com.ensias.Ensias_docs.models.Filiere;
 import com.ensias.Ensias_docs.models.User;
 import com.ensias.Ensias_docs.services.UserService;
 
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
-
+import java.util.List;
 
 
 @Controller
@@ -38,6 +39,7 @@ public class AuthController {
         boolean auth = user!=null;
         model.addAttribute("auth",auth);
         if(user!=null)model.addAttribute("user",user);
+        if(auth) return "redirect:/ensiasdocs/home";
         return "index";
 
     }
@@ -53,10 +55,12 @@ public class AuthController {
         UserDto user = (u!=null?new UserDto(u):null);
         boolean auth = user!=null;
         model.addAttribute("auth",auth);
+        if(auth) return "redirect:/ensiasdocs/home";
         if(user==null){
             user = new UserDto();
         }
 
+        model.addAttribute("filieres",userService.findAllFiliere());
         model.addAttribute("user",user);
 
         return "inscription";
@@ -68,6 +72,7 @@ public class AuthController {
         User user = userService.getCurrentUser();
         boolean auth = user!=null;
         model.addAttribute("auth",auth);
+        if(auth) return "redirect:/ensiasdocs/home";
 
         if(user==null){
             user = new User();
@@ -78,6 +83,10 @@ public class AuthController {
 
     @PostMapping("register")
     public String inscription( @ModelAttribute(name = "user") @Valid UserDto user, Errors errors, Model model){
+
+
+        User user1 = userService.getCurrentUser();
+        if(user1 != null) return "redirect:/ensiasdocs/home";
         boolean user_saved = false;
         System.out.println(model.asMap());
         if(!errors.hasErrors() && user.password_confirm()){
@@ -92,6 +101,7 @@ public class AuthController {
         }
         System.out.println(errors);
 
+        model.addAttribute("filieres",userService.findAllFiliere());
         model.addAttribute("user_saved",user_saved);
         model.addAttribute("errors",errors);
         return "inscription";
@@ -102,5 +112,6 @@ public class AuthController {
         SecurityContextHolder.getContext().setAuthentication(null);
         return "redirect:/login";
     }
+
 
 }

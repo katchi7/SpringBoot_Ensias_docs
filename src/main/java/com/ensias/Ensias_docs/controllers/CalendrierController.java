@@ -40,7 +40,7 @@ public class CalendrierController {
     }
 
     @PostMapping("/calendartodo")
-    public String calendarTodo(@RequestParam("todo_name") String todo_name,@RequestParam("todo_desc") String todo_desc,@RequestParam("todo_is_done") String done,@RequestParam("todo_date") String date_str  ){
+    public String calendarTodo(@RequestParam("todo_name") String todo_name,@RequestParam(value = "todo_desc",defaultValue = "") String todo_desc,@RequestParam("todo_is_done") String done,@RequestParam("todo_date") String date_str  ){
 
         if(!todo_name.trim().equals("") && !date_str.trim().equals("")) {
             todos todo = new todos(0, todo_name, todo_desc, done.equals("done") ? 1 : 0, userService.toDate(date_str), userService.getCurrentUser().getUser_id());

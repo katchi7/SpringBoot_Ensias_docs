@@ -2,12 +2,10 @@ package com.ensias.Ensias_docs.services;
 
 import com.ensias.Ensias_docs.dto.EventDto;
 import com.ensias.Ensias_docs.models.Element;
+import com.ensias.Ensias_docs.models.Filiere;
 import com.ensias.Ensias_docs.models.User;
 import com.ensias.Ensias_docs.models.todos;
-import com.ensias.Ensias_docs.repositories.ElementRepository;
-import com.ensias.Ensias_docs.repositories.InscriptionRepository;
-import com.ensias.Ensias_docs.repositories.TodosRepository;
-import com.ensias.Ensias_docs.repositories.UserRepository;
+import com.ensias.Ensias_docs.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,15 +36,17 @@ public class UserService implements UserDetailsService {
     private final TodosRepository todosRepository;
     private final ElementRepository elementRepository;
 
+    private final FiliereRepository filiereRepository;
     private final InscriptionRepository inscriptionRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, TodosRepository todosRepository, ElementRepository elementRepository, InscriptionRepository inscriptionRepository) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, TodosRepository todosRepository, ElementRepository elementRepository, FiliereRepository filiereRepository, InscriptionRepository inscriptionRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
 
         this.todosRepository = todosRepository;
         this.elementRepository = elementRepository;
+        this.filiereRepository = filiereRepository;
         this.inscriptionRepository = inscriptionRepository;
     }
 
@@ -77,6 +77,10 @@ public class UserService implements UserDetailsService {
         else {
             throw new UsernameNotFoundException(MessageFormat.format("User with email {0} cannot be found.", s));
         }
+    }
+
+    public List<Filiere> findAllFiliere(){
+        return filiereRepository.findAll();
     }
 
 

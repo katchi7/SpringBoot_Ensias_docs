@@ -142,7 +142,9 @@
                                 </div>
                                 <form:label path="user_filiere"/>
                                 <form:select id="filiere" name="filiere"  value = "${user.user_filiere.filiere_name}" class="form-control custom-select bg-white border-left-0 border-md champs-form" path="user_filiere.filiere_name">
+
                                     <option value="" disabled ${user.user_filiere.filiere_name==null?"selected":""}>Choix de filière</option>
+                                    <!--static
                                     <option value="GL" ${user.user_filiere.filiere_name=="GL"?"selected":""}>Génie Logiciel</option>
                                     <option value="IWIM" ${user.user_filiere.filiere_name=="IWIM"?"selected":""}>Ingénierie du Web et Informatique Mobile</option>
                                     <option value="eMBI" ${user.user_filiere.filiere_name=="eMBI"?"selected":""}>e-Management et Business Intelligence</option>
@@ -151,6 +153,16 @@
                                     <option value="IeL" ${user.user_filiere.filiere_name=="IeL"?"selected":""}>Ingénierie e-Logistique</option>
                                     <option value="2IA" ${user.user_filiere.filiere_name=="2IA"?"selected":""}>Ingénierie e-Logistique</option>
                                     <option value="IF" ${user.user_filiere.filiere_name=="IF"?"selected":""}>Ingénierie Digitale pour la Finance</option>
+                                    -->
+                                    <!--Dynamic-->
+
+                                    <c:forEach items="${filieres}" var="filiere">
+
+                                        <option value="${filiere.filiere_name}" ${user.user_filiere.filiere_name==filiere.filiere_name?"selected":""}>${filiere.filiere_abs}</option>
+
+                                    </c:forEach>
+
+
                                 </form:select>
 
                             </div>

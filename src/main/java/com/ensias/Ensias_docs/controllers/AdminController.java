@@ -127,6 +127,8 @@ public class AdminController {
         ElementCreationFormDto element_creation = new ElementCreationFormDto();
         model.addAttribute("element_creation",element_creation);
 
+        model.addAttribute("filieres",userService.findAllFiliere());
+
         ElementModifDto element_modification = new ElementModifDto();
         model.addAttribute("element_modification",element_modification);
 

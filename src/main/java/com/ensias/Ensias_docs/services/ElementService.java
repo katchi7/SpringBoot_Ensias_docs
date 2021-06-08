@@ -64,7 +64,15 @@ public class ElementService {
         return ep.findById(id_elm);
     }
     public List<Element> getElementByModuleName(String Name){
-          return ep.findElementByModuleName(Name);
+        List<Element> list = new ArrayList<Element>();
+        List<Element>  final_list = new ArrayList<>();
+        for (Element element : ep.findAll()) list.add(element);
+        for (Element e : list ){
+            if(e.getElmName().contains(Name) || e.getElmModule().contains(Name)) final_list.add(e);
+        }
+        list.clear();
+        return final_list;
+
     }
 
 

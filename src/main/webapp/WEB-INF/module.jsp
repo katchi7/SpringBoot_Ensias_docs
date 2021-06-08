@@ -1,6 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
-<%@ page import="java.util.ArrayList" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
@@ -119,10 +117,10 @@
                                                 <c:choose>
                                                     <c:when test="${doc.docType == type }">
                                                         <div class="bloc-file">
-                                                            <a class="file-title" href="/ensiasdocs/document/${ doc.doc_id }"><i class="fas fa-file-pdf"
+                                                            <a class="file-title" href="/ensiasdocs/document?idDoc=${doc.doc_id}"><i class="fas fa-file-pdf"
                                                                                                                                  style="margin-right: 7px;"></i>${ doc.docName}</a>
                                                             <div style="float:right;">
-                                                                <a href="/files/${ doc.doc_id }"><button class="button-show btn-telecharger"><i
+                                                                <a href="/files/${ doc.doc_id }?download=1"><button class="button-show btn-telecharger"><i
                                                                         class="fa fa-download" style="margin-right: 5px;"></i><span>Télécharger
                                     </span></button></a>
                                                                 <a href="/ensiasdocs/document?idDoc=${doc.doc_id}"><button class="button-show btn-visualiser"><i

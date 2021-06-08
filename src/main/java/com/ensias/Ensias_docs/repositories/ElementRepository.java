@@ -1,6 +1,7 @@
 package com.ensias.Ensias_docs.repositories;
 
 import com.ensias.Ensias_docs.models.Element;
+import com.ensias.Ensias_docs.models.Filiere;
 import com.ensias.Ensias_docs.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -27,5 +28,7 @@ public interface ElementRepository extends CrudRepository<Element,Integer> {
     List<Element> findElementByDateExamNotNull();
     @Query("SELECT u FROM Element u WHERE u.elmModule = ?1")
     List<Element> findElementByModuleName(String name);
+
+    List<Element> findElementByFilieresAndElmAnnee(Filiere filiere,String ElmAnnee);
 
 }

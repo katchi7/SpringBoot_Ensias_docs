@@ -101,11 +101,11 @@
               <c:forEach items="${ modules }" var="module">
 
                 <div class="grid__item">
-                  <a href="/ensiasdocs/module/${module.elm_id}">
+                  <a href="/ensiasdocs/module?idM=${module.elm_id}">
 
                     <div class="card"><img class="card__img" src="/inc/images/<%= bgs[i%bgs.length] %>"
                                            alt="Snowy Mountains">
-                      <a href="/ensiasdocs/module/${module.elm_id}">
+                      <a href="/ensiasdocs/module?idM=${module.elm_id}"">
                         <div class="card__content">
                           <h1 class="card__header">${module.elmName}</h1>
                           <p class="card__text"> ${ module.elmDesc } </p><a

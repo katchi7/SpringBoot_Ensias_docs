@@ -29,7 +29,19 @@ public class InscriptionRepository {
             entityManager.createNativeQuery(query) .executeUpdate();
 
         }
+    }
 
+    @Transactional
+    public void InscrirUser(User u,List<Element> elements){
 
+        String query = "INSERT into inscrit(id_elm,id_user) VALUES \n";
+        for(Element e : elements){
+            query += "("+e.getElm_id()+","+u.getUser_id()+")\n,";
+        }
+        if(query.contains(")\n,")){
+            query = query.substring(0,query.lastIndexOf(","));
+            System.out.println("Query : "+query);
+            entityManager.createNativeQuery(query) .executeUpdate();
+        }
     }
 }

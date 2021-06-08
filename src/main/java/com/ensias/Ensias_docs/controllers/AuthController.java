@@ -82,7 +82,7 @@ public class AuthController {
         System.out.println(model.asMap());
         if(!errors.hasErrors() && user.password_confirm()){
 
-            userService.saveUser(user.getAsUser());
+            userService.inscrirUser(user.getAsUser());
 
             user_saved = true;
 

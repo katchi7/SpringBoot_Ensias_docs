@@ -7,10 +7,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/files")
@@ -20,12 +17,17 @@ public class FileController {
     DocumentService documentService;
     @GetMapping("/{filename:.+}")
     @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable int filename) {
+    public ResponseEntity<Resource> serveFile(@PathVariable int filename, @RequestParam("download") int download) {
 
         Document document = documentService.finddocument(filename);
 
+
         Resource file = documentService.loadDocument(document);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" +document.getDocName()+ "\"").body(file);
+        if(download==1){
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                    "attachment; filename=\"" +document.getDocName()+ "\"").body(file);
+        }
+        else
+            return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE,document.getDocMime()).header("X-Frame-Options","ALLOW-FROM").body(file);
     }
 }

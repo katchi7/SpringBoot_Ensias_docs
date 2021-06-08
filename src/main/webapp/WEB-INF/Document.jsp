@@ -25,7 +25,7 @@
     </head>
     <body>
         <c:import url="/WEB-INF/header.jsp"></c:import>
-        <div class="min-vh-100" style="margin-top:90px;height:500px;"><embed src="/files/${doc.doc_id}" width="100%" height="100%" type="${doc.docMime}"></div>
+        <div class="min-vh-100" style="margin-top:90px;height:500px;"><iframe src="/files/${doc.doc_id}?download=0" width="100%" height="100%" type="${doc.docMime}"/></div>
  <c:import url="/WEB-INF/footer.jsp"></c:import>
     </body>
 </html>

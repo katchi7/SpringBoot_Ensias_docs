@@ -5,6 +5,7 @@ import com.ensias.Ensias_docs.models.Element;
 import com.ensias.Ensias_docs.models.User;
 import com.ensias.Ensias_docs.models.todos;
 import com.ensias.Ensias_docs.repositories.ElementRepository;
+import com.ensias.Ensias_docs.repositories.InscriptionRepository;
 import com.ensias.Ensias_docs.repositories.TodosRepository;
 import com.ensias.Ensias_docs.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,13 +38,16 @@ public class UserService implements UserDetailsService {
     private final TodosRepository todosRepository;
     private final ElementRepository elementRepository;
 
+    private final InscriptionRepository inscriptionRepository;
+
     @Autowired
-    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, TodosRepository todosRepository, ElementRepository elementRepository) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder, TodosRepository todosRepository, ElementRepository elementRepository, InscriptionRepository inscriptionRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
 
         this.todosRepository = todosRepository;
         this.elementRepository = elementRepository;
+        this.inscriptionRepository = inscriptionRepository;
     }
 
     @Override
@@ -78,9 +82,16 @@ public class UserService implements UserDetailsService {
 
 
     public void saveUser(User user){
+        userRepository.save(user);
+
+
+    }
+    public void inscrirUser(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         System.out.println(user.getPassword().length());
         userRepository.save(user);
+        List<Element> elements = elementRepository.findElementByFilieresAndElmAnnee(user.getUser_filiere(),user.getNiv());
+        inscriptionRepository.InscrirUser(user,elements);
     }
 
     public User getCurrentUser(){

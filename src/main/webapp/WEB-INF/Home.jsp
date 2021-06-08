@@ -83,14 +83,14 @@
             <img src="/inc/images/rechercher-logo.png" alt="ENSIAS-DOC" width="50"
                  style="margin-bottom: 20px;margin-right:0px; ">
             <img class="image-recherche" src="/inc/images/rechercher.png" alt="ENSIAS-DOC" width="340">
-            <form:form action="home" method="get">
+            <form action="home" method="get">
               <div class="input-group recherche"
                    style="width: 50%;box-shadow: 5px 5px 5px 5px grey;border-radius:30px;">
-                <input type="search" class="form-control rounded" placeholder="Recherche module" aria-label="Search"
+                <input type="text" class="form-control rounded" placeholder="Recherche module" aria-label="Search"
                        aria-describedby="search-addon" name="find" />
                 <button type="submit" class="btn btn-outline-primary" style="border: none;">Rechercher</button>
               </div>
-            </form:form>
+            </form>
           </center>
         </div>
 
@@ -163,22 +163,26 @@
           </nav>
         </c:when>
         <c:otherwise>
-          <div class="grid__item">
-            <a href="/ensiasdocs/module/${module.elm_id}">
+          <c:forEach items="${ elements }" var="module">
 
-              <div class="card"><img class="card__img" src="/inc/images/<%= bgs[i%bgs.length] %>"
-                                     alt="Snowy Mountains">
-                <a href="/ensiasdocs/module/${module.elm_id}">
-                  <div class="card__content">
-                    <h1 class="card__header">${module.elmName}</h1>
-                    <p class="card__text"> ${ module.elmDesc } </p><a
-                          href="/ensiasdocs/module?idM=${module.elm_id}"> <button class="card__btn">Accéder
-                    <span>&rarr;</span></button></a>
-                  </div>
-                </a>
-              </div>
-            </a>
-          </div>
+            <div class="grid__item">
+              <a href="/ensiasdocs/module/${module.elm_id}">
+
+                <div class="card"><img class="card__img" src="/inc/images/<%= bgs[i%bgs.length] %>"
+                                       alt="Snowy Mountains">
+                  <a href="/ensiasdocs/module/${module.elm_id}">
+                    <div class="card__content">
+                      <h1 class="card__header">${module.elmName}</h1>
+                      <p class="card__text"> ${ module.elmDesc } </p><a
+                            href="/ensiasdocs/module?idM=${module.elm_id}"> <button class="card__btn">Accéder
+                      <span>&rarr;</span></button></a>
+                    </div>
+                  </a>
+                </div>
+              </a>
+            </div>
+            <% i++; %>
+          </c:forEach>
 
         </c:otherwise>
       </c:choose>

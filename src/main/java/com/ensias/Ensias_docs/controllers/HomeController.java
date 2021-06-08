@@ -58,7 +58,12 @@ public class HomeController {
             List<Element> elements1 = es.getDisplayedModules(elements,4,requestedPage*4);
             model.addAttribute("modules",elements1);}
         else{
+            List<Element> elements=es.getElementByModuleName(find);
+
             model.addAttribute("search",true);
+            model.addAttribute("elements",elements);
+
+
 
 
         }

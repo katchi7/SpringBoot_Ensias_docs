@@ -63,7 +63,9 @@ public class ElementService {
     public Optional<Element> getElementsById(int id_elm){
         return ep.findById(id_elm);
     }
-
+    public List<Element> getElementByModuleName(String Name){
+          return ep.findElementByModuleName(Name);
+    }
 
 
 
